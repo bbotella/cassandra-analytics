@@ -302,3 +302,41 @@ ext {
                           && project.gradle.startParameter.taskNames.any { it.contains("upload") })
 
 }
+
+distributions {
+  main {
+    distributionBaseName = 'apache-cassandra-analytics'
+    contents {
+      from 'LICENSE.txt'
+      // Include the "agents" directory in the distribution
+      from('agents') {
+        into('agents')
+      }
+      // Include the "conf" directory in the distribution
+      from('conf') {
+        into('conf')
+      }
+      setDuplicatesStrategy(DuplicatesStrategy.INCLUDE)
+    }
+  }
+  // Packages the sources as a tarball for distribution
+  sources {
+    distributionBaseName = 'apache-cassandra-analytics'
+    distributionClassifier = 'src'
+    contents {
+      from '.'
+      include '**/*.*'
+      exclude '**.gradle/**'
+      exclude '**.idea/**'
+      exclude 'agents/**'
+      exclude 'bin/**'
+      exclude 'dtest-jars/**'
+      exclude '**lib/**'
+      exclude '**logs/**'
+      exclude '**/build/**'
+      exclude '**/out/**'
+      exclude '**/target/**'
+    }
+  }
+}
+
