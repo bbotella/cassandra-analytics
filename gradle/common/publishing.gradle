@@ -20,7 +20,8 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 ext {
-    mavenRepositoryUrl = propertyWithDefault("maven.repository.url", "")
+//    mavenRepositoryUrl = propertyWithDefault("maven.repository.url", "")
+    mavenRepositoryUrl = "https://repository.apache.org/service/local/staging/deploy/maven2"
     // These properties can be set in ~/.gradle/gradle.properties file,
     // though it would be open text. They can also be set on the cli via
     // -Pmaven.username and -Pmaven.password
