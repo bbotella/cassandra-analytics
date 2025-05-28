@@ -293,6 +293,16 @@ distributions {
   }
 }
 
+tasks.named('distTar').configure {
+  compression = Compression.GZIP
+  archiveExtension = "tar.gz"
+}
+
+tasks.named('sourcesDistTar').configure {
+  compression = Compression.GZIP
+  archiveExtension = "tar.gz"
+}
+
 ext {
   // A common method to handle loading gradle properties with a default when
   // no definition is found. The property value is determined by the following
