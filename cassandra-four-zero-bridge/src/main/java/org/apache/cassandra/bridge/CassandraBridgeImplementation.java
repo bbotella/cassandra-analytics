@@ -327,6 +327,15 @@ public class CassandraBridgeImplementation extends CassandraBridge
     }
 
     @Override
+    public PartitionKeyEncoder partitionKeyEncoder(@NotNull CqlTable table, @NotNull Partitioner partitioner)
+    {
+        // Take the metadata from the schema update that registers this definition of the table, rather than
+        // reading it back from the schema, where another thread may have registered a different definition since
+        TableMetadata metadata = new SchemaBuilder(table, partitioner).tableMetaData();
+        return new PartitionKeyEncoderImplementation(metadata);
+    }
+
+    @Override
     public List<ByteBuffer> encodePartitionKeys(Partitioner partitioner, String keyspace, String createTableStmt, List<List<String>> keys)
     {
         CqlTable table = new SchemaBuilder(createTableStmt, keyspace, ReplicationFactor.simpleStrategy(1), partitioner).build();
